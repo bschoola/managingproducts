@@ -79,7 +79,7 @@ namespace Api.Products.Controllers
         /// </summary>
         /// <param name="productId">The product identifier.</param>
         /// <returns>No content.</returns>
-        [HttpDelete("productId")]
+        [HttpDelete("{productId}")]
         public async Task<IActionResult> Delete(int productId)
         {
             await _productService.Delete(productId);

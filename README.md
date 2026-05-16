@@ -1,244 +1,238 @@
 # Managing Products API
 
-A simple ASP.NET Core Web API project demonstrating CRUD (Create, Read, Update, Delete) operations for product management using an in-memory database and following clean architecture principles.
+Uma API RESTful em ASP.NET Core 8.0 demonstrando operações CRUD de gerenciamento de produtos com banco de dados in-memory, seguindo princípios de Clean Architecture.
 
-## 📋 Table of Contents
+## Sumário
 
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Technologies](#technologies)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [API Endpoints](#api-endpoints)
-- [Testing](#testing)
-- [Features](#features)
+- [Visão Geral](#visão-geral)
+- [Arquitetura](#arquitetura)
+- [Tecnologias](#tecnologias)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Como Executar](#como-executar)
+- [Endpoints da API](#endpoints-da-api)
+- [Validações](#validações)
+- [Tratamento de Erros](#tratamento-de-erros)
+- [Testes](#testes)
+- [Próximos Passos](#próximos-passos)
 
-## 🎯 Overview
+## Visão Geral
 
-This project is a demonstration of a RESTful API built with ASP.NET Core 8.0 that manages products. It uses an in-memory database for data storage, making it ideal for development, testing, and learning purposes.
+Projeto de estudo de uma API RESTful construída com ASP.NET Core 8.0 para gerenciamento de produtos. Utiliza banco de dados in-memory, tornando-o ideal para desenvolvimento, aprendizado e execução de testes sem dependências externas.
 
-## 🏗️ Architecture
+## Arquitetura
 
-The solution follows a clean architecture approach with separation of concerns across multiple layers:
+A solução segue Clean Architecture com separação clara de responsabilidades em camadas:
 
-- **Api.Products** - Presentation layer containing controllers and API configuration
-- **Domain.Products** - Business logic layer with services, DTOs, and validators
-- **Infrastructure.Products** - Data access layer with Entity Framework Core configuration
-- **Api.Products.Tests** - Unit tests for the API layer
+- **Api.Products** — Camada de apresentação: controllers, filtros e configuração do pipeline
+- **Domain.Products** — Camada de domínio: serviços, DTOs, interfaces e validadores
+- **Infrastructure.Products** — Camada de infraestrutura: contexto do EF Core, entidades e configurações
+- **Api.Products.Tests** — Testes unitários da camada de API
 
-## 🛠️ Technologies
+## Tecnologias
 
-- **.NET 8.0** - Target framework
-- **ASP.NET Core** - Web API framework
-- **Entity Framework Core** - ORM with In-Memory Database provider
-- **FluentValidation** - Model validation
-- **Swagger/OpenAPI** - API documentation
-- **xUnit** - Testing framework
-- **Moq** - Mocking framework for unit tests
-- **FluentAssertions** - Assertion library for tests
+| Categoria | Tecnologia |
+|-----------|------------|
+| Framework | .NET 8.0 / ASP.NET Core Web API |
+| ORM | Entity Framework Core 8.0 (In-Memory) |
+| Validação | FluentValidation 12.1 |
+| Documentação | Swagger / Swashbuckle 6.6 |
+| Testes | xUnit 2.9, Moq 4.20, FluentAssertions 8.8 |
+| Cobertura | Coverlet |
 
-## 📁 Project Structure
+## Estrutura do Projeto
 
 ```
 managingproducts/
-├── Api.Products/                    # Web API Project
+├── Api.Products/                        # Camada de Apresentação
 │   ├── Controllers/
-│   │   └── ProductsController.cs    # Products CRUD endpoints
+│   │   └── ProductsController.cs        # Endpoints CRUD de produtos
 │   ├── Global/
-│   │   └── GlobalExceptionFilter.cs # Global exception handling
-│   ├── Program.cs                   # Application entry point
-│   └── appsettings.json            # Configuration
+│   │   └── GlobalExceptionFilter.cs     # Filtro global de exceções com logging
+│   ├── Program.cs                       # Entry point e configuração de DI
+│   └── appsettings.json
 │
-├── Domain.Products/                 # Business Logic Layer
+├── Domain.Products/                     # Camada de Domínio
 │   ├── Contracts/
-│   │   └── IProductService.cs      # Service interface
+│   │   └── IProductService.cs           # Interface do serviço
 │   ├── Dto/
-│   │   └── ProductDto.cs           # Data Transfer Object
+│   │   └── ProductDto.cs                # Data Transfer Object
 │   ├── Services/
-│   │   └── ProductService.cs       # Business logic implementation
+│   │   └── ProductService.cs            # Lógica de negócio
 │   └── Validators/
-│       └── ProductValidator.cs     # FluentValidation rules
+│       └── ProductValidator.cs          # Regras de validação (FluentValidation)
 │
-├── Infrastructure.Products/         # Data Access Layer
+├── Infrastructure.Products/             # Camada de Infraestrutura
 │   ├── Context/
-│   │   └── ProductsContext.cs      # EF Core DbContext
+│   │   └── ProductsContext.cs           # DbContext do EF Core
 │   ├── Entities/
-│   │   └── Product.cs              # Product entity model
+│   │   └── Product.cs                   # Entidade de produto
 │   └── Configurations/
-│       └── ProductConfiguration.cs  # EF Core entity configuration
+│       └── ProductConfiguration.cs      # Configuração de tipo de entidade
 │
 └── Tests/
-    └── Api.Products.Tests/          # Unit Tests
+    └── Api.Products.Tests/              # Testes Unitários
         └── Controllers/
             └── ProductsControllerTests.cs
 ```
 
-## 🚀 Getting Started
+## Como Executar
 
-### Prerequisites
+### Pré-requisitos
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) or later
-- Visual Studio 2022, VS Code, or any .NET-compatible IDE
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) ou superior
+- Visual Studio 2022, VS Code ou qualquer IDE compatível com .NET
 
-### Running the Application
+### Passos
 
-1. **Clone the repository**
+1. **Clone o repositório**
    ```bash
    git clone <repository-url>
    cd managingproducts
    ```
 
-2. **Restore dependencies**
+2. **Restaure as dependências**
    ```bash
    dotnet restore
    ```
 
-3. **Run the API**
+3. **Execute a API**
    ```bash
    cd Api.Products
    dotnet run
    ```
 
-4. **Access Swagger UI**
-   
-   Open your browser and navigate to:
-   - `https://localhost:<port>/swagger` (HTTPS)
-   - `http://localhost:<port>/swagger` (HTTP)
-   
-   The port number will be displayed in the console output.
+4. **Acesse o Swagger UI**
 
-## 📡 API Endpoints
+   Abra o navegador e navegue para `http://localhost:5230/swagger`
 
-### Products
+## Endpoints da API
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/products` | Get all products |
-| GET | `/api/products/{id}` | Get a product by ID |
-| POST | `/api/products` | Create a new product |
-| PUT | `/api/products/{id}` | Update an existing product |
-| DELETE | `/api/products/{id}` | Delete a product |
+| Método | Rota | Descrição | Status de Sucesso |
+|--------|------|-----------|-------------------|
+| GET | `/api/products` | Lista todos os produtos | `200 OK` |
+| GET | `/api/products/{id}` | Busca produto por ID | `200 OK` |
+| POST | `/api/products` | Cria um novo produto | `200 OK` |
+| PUT | `/api/products/{id}` | Atualiza produto existente | `200 OK` |
+| DELETE | `/api/products/{id}` | Remove um produto | `204 No Content` |
 
-### Request/Response Examples
+### Exemplos de Requisição/Resposta
 
-#### Create Product (POST)
+#### POST /api/products
 
-**Request:**
+**Body:**
 ```json
 {
   "name": "Laptop",
-  "description": "High-performance laptop",
+  "description": "Notebook de alta performance",
   "price": 999.99
 }
 ```
 
-**Response:**
+**Resposta:**
 ```json
 {
   "id": 1,
   "name": "Laptop",
-  "description": "High-performance laptop",
+  "description": "Notebook de alta performance",
   "price": 999.99,
-  "createdDate": "2025-11-11T10:30:00Z"
+  "createdDate": "2026-05-16T10:30:00Z"
 }
 ```
 
-#### Update Product (PUT)
+#### PUT /api/products/{id}
 
-**Request:**
+**Body:**
 ```json
 {
   "name": "Laptop Pro",
-  "description": "Professional grade laptop",
+  "description": "Notebook profissional",
   "price": 1299.99
 }
 ```
 
-**Response:**
+#### Resposta de Erro (400 Bad Request)
+
 ```json
 {
-  "id": 1,
-  "name": "Laptop Pro",
-  "description": "Professional grade laptop",
-  "price": 1299.99,
-  "createdDate": "2025-11-11T10:30:00Z"
+  "error": "Product does not exist"
 }
 ```
 
-## 🧪 Testing
+## Validações
 
-The project includes comprehensive unit tests for the Products Controller using xUnit, Moq, and FluentAssertions.
+As validações são implementadas com FluentValidation e aplicadas automaticamente via middleware:
 
-### Running Tests
+| Campo | Regras |
+|-------|--------|
+| `name` | Obrigatório, não vazio, máximo 100 caracteres |
+| `description` | Opcional, máximo 150 caracteres |
+| `price` | Maior ou igual a 0 |
+
+## Tratamento de Erros
+
+O `GlobalExceptionFilter` intercepta todas as exceções não tratadas e retorna respostas estruturadas com logging:
+
+| Exceção | Status HTTP | Log Level |
+|---------|------------|-----------|
+| `InvalidOperationException` | `400 Bad Request` | Warning |
+| Qualquer outra | `500 Internal Server Error` | Error |
+
+Todas as respostas de erro seguem o formato:
+```json
+{ "error": "mensagem descritiva" }
+```
+
+## Testes
+
+O projeto inclui testes unitários do controller com xUnit, Moq e FluentAssertions.
+
+### Executar os testes
 
 ```bash
 cd Tests/Api.Products.Tests
 dotnet test
 ```
 
-### Test Coverage
+### Casos cobertos
 
-The test suite covers:
-- ✅ Getting all products
-- ✅ Getting a product by ID
-- ✅ Creating a new product with valid data
-- ✅ Creating a product with invalid model state
-- ✅ Updating an existing product
-- ✅ Updating with invalid model state
-- ✅ Deleting a product
-- ✅ Exception handling when product doesn't exist
+| Teste | Status |
+|-------|--------|
+| Listar todos os produtos | OK |
+| Buscar produto por ID válido | OK |
+| Criar produto com dados válidos | OK |
+| Criar produto com model state inválido | OK |
+| Atualizar produto com dados válidos | OK |
+| Atualizar produto com model state inválido | OK |
+| Deletar produto por ID | OK |
+| Exceção ao deletar produto inexistente | OK |
 
-## ✨ Features
+## Próximos Passos
 
-### Validation
+Melhorias sugeridas para evoluir o projeto em direção a um cenário de produção:
 
-Products are validated using FluentValidation with the following rules:
-- **Name**: Required, maximum length of 100 characters
-- **Price**: Must be greater than or equal to 0
+**Arquitetura**
+- [ ] Abstrair registro de DI em extension methods por camada (`AddInfrastructure()`, `AddDomain()`)
+- [ ] Implementar padrão Repository explícito para separar o acesso a dados do serviço
+- [ ] Adicionar AutoMapper para mapeamento entre entidade e DTO
 
-### Exception Handling
+**Dados**
+- [ ] Migrar para banco persistente (SQL Server, PostgreSQL) com migrations do EF Core
+- [ ] Configurar precisão decimal para o campo `Price` (`decimal(18,2)`)
 
-Global exception handling is implemented via `GlobalExceptionFilter` to provide consistent error responses.
+**Segurança & Qualidade**
+- [ ] Implementar autenticação e autorização (JWT)
+- [ ] Configurar CORS
+- [ ] Adicionar rate limiting
 
-### In-Memory Database
+**Testes**
+- [ ] Adicionar testes unitários para `ProductService` e `ProductValidator`
+- [ ] Adicionar testes de integração com banco in-memory real
+- [ ] Alinhar target framework dos testes (.NET 8.0 em vez de 9.0)
 
-The application uses Entity Framework Core's In-Memory Database provider, which means:
-- No external database setup required
-- Data persists only during application runtime
-- Perfect for development and testing
-- Data is reset when the application restarts
+**Observabilidade**
+- [ ] Configurar structured logging (Serilog ou OpenTelemetry)
+- [ ] Adicionar health checks (`/health`)
 
-### API Documentation
+---
 
-Swagger/OpenAPI integration provides:
-- Interactive API documentation
-- API endpoint testing interface
-- Automatic request/response schema generation
-
-## 🔧 Configuration
-
-The in-memory database is configured in `Program.cs`:
-
-```csharp
-builder.Services.AddDbContext<ProductsContext>(
-    opt => opt.UseInMemoryDatabase("Test")
-);
-```
-
-To switch to a real database (SQL Server, PostgreSQL, etc.), replace the `UseInMemoryDatabase` call with the appropriate database provider.
-
-## 📝 Notes
-
-- This is a learning/demonstration project designed to showcase clean architecture and testing practices
-- The in-memory database means all data is lost when the application stops
-- For production use, consider implementing:
-  - A persistent database
-  - Authentication and authorization
-  - Logging and monitoring
-  - Rate limiting
-  - Caching strategies
-  - AutoMapper for DTO mappings
-
-## 📄 License
-
-This project is for educational purposes.
+> Projeto educacional demonstrando Clean Architecture, validação com FluentValidation e testes com mocks em ASP.NET Core 8.0.

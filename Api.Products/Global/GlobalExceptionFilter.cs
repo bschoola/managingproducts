@@ -5,8 +5,11 @@ namespace Api.Products.Global
 {
     public class GlobalExceptionFilter : IAsyncExceptionFilter
     {
-        public GlobalExceptionFilter()
+        private readonly ILogger<GlobalExceptionFilter> _logger;
+
+        public GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger)
         {
+            _logger = logger;
         }
 
         public async Task OnExceptionAsync(ExceptionContext context)
@@ -15,19 +18,19 @@ namespace Api.Products.Global
 
             if (context.Exception is InvalidOperationException)
             {
-                SetJsonResult(context, StatusCodes.Status400BadRequest, context.Exception.Message, LogLevel.Warning);
+                _logger.LogWarning(context.Exception, "Business rule violation: {Message}", context.Exception.Message);
+                SetJsonResult(context, StatusCodes.Status400BadRequest, context.Exception.Message);
             }
             else
             {
-                SetJsonResult(context, StatusCodes.Status500InternalServerError, context.Exception.Message, LogLevel.Error);
+                _logger.LogError(context.Exception, "Unhandled exception: {Message}", context.Exception.Message);
+                SetJsonResult(context, StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
             }
         }
 
-
-        private void SetJsonResult(ExceptionContext context, int status, string message, LogLevel logLevel)
+        private static void SetJsonResult(ExceptionContext context, int status, string message)
         {
-            context.Result = new JsonResult(message) { StatusCode = status };
+            context.Result = new JsonResult(new { error = message }) { StatusCode = status };
         }
-
     }
 }

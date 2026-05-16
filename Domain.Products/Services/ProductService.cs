@@ -49,7 +49,7 @@ namespace Domain.Products.Services
             var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
             if (existingProduct == null)
             {
-                throw new InvalidOperationException("Product does not exists");
+                throw new InvalidOperationException("Product does not exist");
             }
             existingProduct.Name = productDto.Name;
             existingProduct.Description = productDto.Description;
@@ -63,10 +63,10 @@ namespace Domain.Products.Services
             var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
             if (product == null)
             {
-                throw new InvalidOperationException("Product does not exists");
+                throw new InvalidOperationException("Product does not exist");
             }
             _context.Products.Remove(product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

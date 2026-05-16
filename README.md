@@ -1,6 +1,6 @@
 # Managing Products API
 
-Uma API RESTful em ASP.NET Core 8.0 demonstrando operações CRUD de gerenciamento de produtos com banco de dados in-memory, seguindo princípios de Clean Architecture.
+Uma API RESTful em ASP.NET Core 10.0 demonstrando operações CRUD de gerenciamento de produtos com banco de dados in-memory, seguindo princípios de Clean Architecture.
 
 ## Sumário
 
@@ -17,7 +17,7 @@ Uma API RESTful em ASP.NET Core 8.0 demonstrando operações CRUD de gerenciamen
 
 ## Visão Geral
 
-Projeto de estudo de uma API RESTful construída com ASP.NET Core 8.0 para gerenciamento de produtos. Utiliza banco de dados in-memory, tornando-o ideal para desenvolvimento, aprendizado e execução de testes sem dependências externas.
+Projeto de estudo de uma API RESTful construída com ASP.NET Core 10.0 para gerenciamento de produtos. Utiliza banco de dados in-memory, tornando-o ideal para desenvolvimento, aprendizado e execução de testes sem dependências externas.
 
 ## Arquitetura
 
@@ -32,8 +32,8 @@ A solução segue Clean Architecture com separação clara de responsabilidades 
 
 | Categoria | Tecnologia |
 |-----------|------------|
-| Framework | .NET 8.0 / ASP.NET Core Web API |
-| ORM | Entity Framework Core 8.0 (In-Memory) |
+| Framework | .NET 10.0 / ASP.NET Core Web API |
+| ORM | Entity Framework Core 10.0 (In-Memory) |
 | Validação | FluentValidation 12.1 |
 | Documentação | Swagger / Swashbuckle 6.6 |
 | Testes | xUnit 2.9, Moq 4.20, FluentAssertions 8.8 |
@@ -79,7 +79,7 @@ managingproducts/
 
 ### Pré-requisitos
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) ou superior
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) ou superior
 - Visual Studio 2022, VS Code ou qualquer IDE compatível com .NET
 
 ### Passos
@@ -227,7 +227,7 @@ Melhorias sugeridas para evoluir o projeto em direção a um cenário de produç
 **Testes**
 - [ ] Adicionar testes unitários para `ProductService` e `ProductValidator`
 - [ ] Adicionar testes de integração com banco in-memory real
-- [ ] Alinhar target framework dos testes (.NET 8.0 em vez de 9.0)
+- [ ] Adicionar testes de integração com banco in-memory real
 
 **Observabilidade**
 - [ ] Configurar structured logging (Serilog ou OpenTelemetry)
@@ -235,4 +235,4 @@ Melhorias sugeridas para evoluir o projeto em direção a um cenário de produç
 
 ---
 
-> Projeto educacional demonstrando Clean Architecture, validação com FluentValidation e testes com mocks em ASP.NET Core 8.0.
+> Projeto educacional demonstrando Clean Architecture, validação com FluentValidation e testes com mocks em ASP.NET Core 10.0.

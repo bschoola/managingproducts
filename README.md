@@ -1,4 +1,4 @@
-# Managing Products API
+# Products Management API
 
 Uma API RESTful em ASP.NET Core 10.0 demonstrando operações CRUD de gerenciamento de produtos com banco de dados in-memory, seguindo princípios de Clean Architecture.
 

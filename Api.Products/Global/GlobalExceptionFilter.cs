@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Api.Products.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Api.Products.Global
@@ -30,7 +31,7 @@ namespace Api.Products.Global
 
         private static void SetJsonResult(ExceptionContext context, int status, string message)
         {
-            context.Result = new JsonResult(new { error = message }) { StatusCode = status };
+            context.Result = new JsonResult(new ErrorResponse { Error = message }) { StatusCode = status };
         }
     }
 }

@@ -1,121 +1,121 @@
 # Products Management API
 
-Uma API RESTful em ASP.NET Core 10.0 demonstrando operações CRUD de gerenciamento de produtos com banco de dados in-memory, seguindo princípios de Clean Architecture.
+A RESTful API built with ASP.NET Core 10.0 demonstrating CRUD operations for product management with an in-memory database, following Clean Architecture principles.
 
-## Sumário
+## Table of Contents
 
-- [Visão Geral](#visão-geral)
-- [Arquitetura](#arquitetura)
-- [Tecnologias](#tecnologias)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Como Executar](#como-executar)
-- [Endpoints da API](#endpoints-da-api)
-- [Validações](#validações)
-- [Tratamento de Erros](#tratamento-de-erros)
-- [Testes](#testes)
-- [Próximos Passos](#próximos-passos)
+- [Overview](#overview)
+- [Architecture](#architecture)
+- [Technologies](#technologies)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+- [Validations](#validations)
+- [Error Handling](#error-handling)
+- [Tests](#tests)
+- [Next Steps](#next-steps)
 
-## Visão Geral
+## Overview
 
-Projeto de estudo de uma API RESTful construída com ASP.NET Core 10.0 para gerenciamento de produtos. Utiliza banco de dados in-memory, tornando-o ideal para desenvolvimento, aprendizado e execução de testes sem dependências externas.
+A study project for a RESTful API built with ASP.NET Core 10.0 for product management. It uses an in-memory database, making it ideal for development, learning, and running tests without external dependencies.
 
-## Arquitetura
+## Architecture
 
-A solução segue Clean Architecture com separação clara de responsabilidades em camadas:
+The solution follows Clean Architecture with a clear separation of concerns across layers:
 
-- **Api.Products** — Camada de apresentação: controllers, filtros e configuração do pipeline
-- **Domain.Products** — Camada de domínio: serviços, DTOs, interfaces e validadores
-- **Infrastructure.Products** — Camada de infraestrutura: contexto do EF Core, entidades e configurações
-- **Api.Products.Tests** — Testes unitários da camada de API
+- **Api.Products** — Presentation layer: controllers, filters, and pipeline configuration
+- **Domain.Products** — Domain layer: services, DTOs, interfaces, and validators
+- **Infrastructure.Products** — Infrastructure layer: EF Core context, entities, and configurations
+- **Api.Products.Tests** — Unit tests for the API layer
 
-## Tecnologias
+## Technologies
 
-| Categoria | Tecnologia |
-|-----------|------------|
+| Category | Technology |
+|----------|------------|
 | Framework | .NET 10.0 / ASP.NET Core Web API |
 | ORM | Entity Framework Core 10.0 (In-Memory) |
-| Validação | FluentValidation 12.1 |
-| Documentação | Swagger / Swashbuckle 6.6 |
-| Testes | xUnit 2.9, Moq 4.20, FluentAssertions 8.8 |
-| Cobertura | Coverlet |
+| Validation | FluentValidation 12.1 |
+| Documentation | Swagger / Swashbuckle 6.6 |
+| Tests | xUnit 2.9, Moq 4.20, FluentAssertions 8.8 |
+| Coverage | Coverlet |
 
-## Estrutura do Projeto
+## Project Structure
 
 ```
 managingproducts/
-├── Api.Products/                        # Camada de Apresentação
+├── Api.Products/                        # Presentation Layer
 │   ├── Controllers/
-│   │   └── ProductsController.cs        # Endpoints CRUD de produtos
+│   │   └── ProductsController.cs        # Product CRUD endpoints
 │   ├── Global/
-│   │   └── GlobalExceptionFilter.cs     # Filtro global de exceções com logging
-│   ├── Program.cs                       # Entry point e configuração de DI
+│   │   └── GlobalExceptionFilter.cs     # Global exception filter with logging
+│   ├── Program.cs                       # Entry point and DI configuration
 │   └── appsettings.json
 │
-├── Domain.Products/                     # Camada de Domínio
+├── Domain.Products/                     # Domain Layer
 │   ├── Contracts/
-│   │   └── IProductService.cs           # Interface do serviço
+│   │   └── IProductService.cs           # Service interface
 │   ├── Dto/
 │   │   └── ProductDto.cs                # Data Transfer Object
 │   ├── Services/
-│   │   └── ProductService.cs            # Lógica de negócio
+│   │   └── ProductService.cs            # Business logic
 │   └── Validators/
-│       └── ProductValidator.cs          # Regras de validação (FluentValidation)
+│       └── ProductValidator.cs          # Validation rules (FluentValidation)
 │
-├── Infrastructure.Products/             # Camada de Infraestrutura
+├── Infrastructure.Products/             # Infrastructure Layer
 │   ├── Context/
-│   │   └── ProductsContext.cs           # DbContext do EF Core
+│   │   └── ProductsContext.cs           # EF Core DbContext
 │   ├── Entities/
-│   │   └── Product.cs                   # Entidade de produto
+│   │   └── Product.cs                   # Product entity
 │   └── Configurations/
-│       └── ProductConfiguration.cs      # Configuração de tipo de entidade
+│       └── ProductConfiguration.cs      # Entity type configuration
 │
 └── Tests/
-    └── Api.Products.Tests/              # Testes Unitários
+    └── Api.Products.Tests/              # Unit Tests
         └── Controllers/
             └── ProductsControllerTests.cs
 ```
 
-## Como Executar
+## Getting Started
 
-### Pré-requisitos
+### Prerequisites
 
-- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) ou superior
-- Visual Studio 2022, VS Code ou qualquer IDE compatível com .NET
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or higher
+- Visual Studio 2022, VS Code, or any .NET-compatible IDE
 
-### Passos
+### Steps
 
-1. **Clone o repositório**
+1. **Clone the repository**
    ```bash
    git clone <repository-url>
    cd managingproducts
    ```
 
-2. **Restaure as dependências**
+2. **Restore dependencies**
    ```bash
    dotnet restore
    ```
 
-3. **Execute a API**
+3. **Run the API**
    ```bash
    cd Api.Products
    dotnet run
    ```
 
-4. **Acesse o Swagger UI**
+4. **Access the Swagger UI**
 
-   Abra o navegador e navegue para `http://localhost:5230/swagger`
+   Open your browser and navigate to `http://localhost:5230/swagger`
 
-## Endpoints da API
+## API Endpoints
 
-| Método | Rota | Descrição | Status de Sucesso |
-|--------|------|-----------|-------------------|
-| GET | `/api/products` | Lista todos os produtos | `200 OK` |
-| GET | `/api/products/{id}` | Busca produto por ID | `200 OK` |
-| POST | `/api/products` | Cria um novo produto | `200 OK` |
-| PUT | `/api/products/{id}` | Atualiza produto existente | `200 OK` |
-| DELETE | `/api/products/{id}` | Remove um produto | `204 No Content` |
+| Method | Route | Description | Success Status |
+|--------|-------|-------------|----------------|
+| GET | `/api/products` | List all products | `200 OK` |
+| GET | `/api/products/{id}` | Get product by ID | `200 OK` |
+| POST | `/api/products` | Create a new product | `200 OK` |
+| PUT | `/api/products/{id}` | Update an existing product | `200 OK` |
+| DELETE | `/api/products/{id}` | Remove a product | `204 No Content` |
 
-### Exemplos de Requisição/Resposta
+### Request/Response Examples
 
 #### POST /api/products
 
@@ -123,17 +123,17 @@ managingproducts/
 ```json
 {
   "name": "Laptop",
-  "description": "Notebook de alta performance",
+  "description": "High-performance notebook",
   "price": 999.99
 }
 ```
 
-**Resposta:**
+**Response:**
 ```json
 {
   "id": 1,
   "name": "Laptop",
-  "description": "Notebook de alta performance",
+  "description": "High-performance notebook",
   "price": 999.99,
   "createdDate": "2026-05-16T10:30:00Z"
 }
@@ -145,12 +145,12 @@ managingproducts/
 ```json
 {
   "name": "Laptop Pro",
-  "description": "Notebook profissional",
+  "description": "Professional notebook",
   "price": 1299.99
 }
 ```
 
-#### Resposta de Erro (400 Bad Request)
+#### Error Response (400 Bad Request)
 
 ```json
 {
@@ -158,81 +158,80 @@ managingproducts/
 }
 ```
 
-## Validações
+## Validations
 
-As validações são implementadas com FluentValidation e aplicadas automaticamente via middleware:
+Validations are implemented with FluentValidation and applied automatically via middleware:
 
-| Campo | Regras |
-|-------|--------|
-| `name` | Obrigatório, não vazio, máximo 100 caracteres |
-| `description` | Opcional, máximo 150 caracteres |
-| `price` | Maior ou igual a 0 |
+| Field | Rules |
+|-------|-------|
+| `name` | Required, not empty, max 100 characters |
+| `description` | Optional, max 150 characters |
+| `price` | Greater than or equal to 0 |
 
-## Tratamento de Erros
+## Error Handling
 
-O `GlobalExceptionFilter` intercepta todas as exceções não tratadas e retorna respostas estruturadas com logging:
+The `GlobalExceptionFilter` intercepts all unhandled exceptions and returns structured responses with logging:
 
-| Exceção | Status HTTP | Log Level |
-|---------|------------|-----------|
+| Exception | HTTP Status | Log Level |
+|-----------|-------------|-----------|
 | `InvalidOperationException` | `400 Bad Request` | Warning |
-| Qualquer outra | `500 Internal Server Error` | Error |
+| Any other | `500 Internal Server Error` | Error |
 
-Todas as respostas de erro seguem o formato:
+All error responses follow the format:
 ```json
-{ "error": "mensagem descritiva" }
+{ "error": "descriptive message" }
 ```
 
-## Testes
+## Tests
 
-O projeto inclui testes unitários do controller com xUnit, Moq e FluentAssertions.
+The project includes controller unit tests using xUnit, Moq, and FluentAssertions.
 
-### Executar os testes
+### Run the tests
 
 ```bash
 cd Tests/Api.Products.Tests
 dotnet test
 ```
 
-### Casos cobertos
+### Covered cases
 
-| Teste | Status |
-|-------|--------|
-| Listar todos os produtos | OK |
-| Buscar produto por ID válido | OK |
-| Criar produto com dados válidos | OK |
-| Criar produto com model state inválido | OK |
-| Atualizar produto com dados válidos | OK |
-| Atualizar produto com model state inválido | OK |
-| Deletar produto por ID | OK |
-| Exceção ao deletar produto inexistente | OK |
+| Test | Status |
+|------|--------|
+| List all products | OK |
+| Get product by valid ID | OK |
+| Create product with valid data | OK |
+| Create product with invalid model state | OK |
+| Update product with valid data | OK |
+| Update product with invalid model state | OK |
+| Delete product by ID | OK |
+| Exception when deleting non-existent product | OK |
 
-## Próximos Passos
+## Next Steps
 
-Melhorias sugeridas para evoluir o projeto em direção a um cenário de produção:
+Suggested improvements to evolve the project toward a production scenario:
 
-**Arquitetura**
-- [ ] Abstrair registro de DI em extension methods por camada (`AddInfrastructure()`, `AddDomain()`)
-- [ ] Implementar padrão Repository explícito para separar o acesso a dados do serviço
-- [ ] Adicionar AutoMapper para mapeamento entre entidade e DTO
+**Architecture**
+- [ ] Abstract DI registration into extension methods per layer (`AddInfrastructure()`, `AddDomain()`)
+- [ ] Implement explicit Repository pattern to separate data access from the service
+- [ ] Add AutoMapper for entity-to-DTO mapping
 
-**Dados**
-- [ ] Migrar para banco persistente (SQL Server, PostgreSQL) com migrations do EF Core
-- [ ] Configurar precisão decimal para o campo `Price` (`decimal(18,2)`)
+**Data**
+- [ ] Migrate to a persistent database (SQL Server, PostgreSQL) with EF Core migrations
+- [ ] Configure decimal precision for the `Price` field (`decimal(18,2)`)
 
-**Segurança & Qualidade**
-- [ ] Implementar autenticação e autorização (JWT)
-- [ ] Configurar CORS
-- [ ] Adicionar rate limiting
+**Security & Quality**
+- [ ] Implement authentication and authorization (JWT)
+- [ ] Configure CORS
+- [ ] Add rate limiting
 
-**Testes**
-- [ ] Adicionar testes unitários para `ProductService` e `ProductValidator`
-- [ ] Adicionar testes de integração com banco in-memory real
-- [ ] Adicionar testes de integração com banco in-memory real
+**Tests**
+- [ ] Add unit tests for `ProductService` and `ProductValidator`
+- [ ] Add integration tests with a real in-memory database
 
-**Observabilidade**
-- [ ] Configurar structured logging (Serilog ou OpenTelemetry)
-- [ ] Adicionar health checks (`/health`)
+**Observability**
+- [ ] Configure structured logging (Serilog or OpenTelemetry)
+- [ ] Add health checks (`/health`)
 
 ---
 
-> Projeto educacional demonstrando Clean Architecture, validação com FluentValidation e testes com mocks em ASP.NET Core 10.0.
+> Educational project demonstrating Clean Architecture, validation with FluentValidation, and mock-based testing in ASP.NET Core 10.0.
